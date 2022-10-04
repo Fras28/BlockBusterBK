@@ -29,5 +29,5 @@ app.use((_req, res, next) => {
 });
 app.use(blockbuster_routes_1.default);
 app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+    console.log(`Server running`);
 });
