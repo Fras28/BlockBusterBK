@@ -14,7 +14,7 @@
 //     (await emails).forEach((e) => {
 //       transporter.sendMail({
 //         from:`"BLOCKBUSTER"<blockbusterpg@gmail.com>`,
-//         to: `fselvarolo28@gmail.com`,
+//         to: ``,
 //         subject: "BLOCKBUSTER PF",
 //         html: `<p>🎊 Hey! We are happy to announce that a new movie was added 🎬. Click here and enjoy the experience --> <strong><a href=${url}>Blockbuster 🎞</a></strong> experience! Hope you to enjoy it!! 🎊</p>`,
 //       });
@@ -34,7 +34,7 @@
 //   try {
 //        await transporter.sendMail({
 //       from:`"BLOCKBUSTER"<blockbusterpg@gmail.com>`,
-//       to: `fselvarolo28@gmail.com`,
+//       to: ``,
 //       subject: "BLOCKBUSTER PF",
 //       html: `<p>Hey ${nickname}!!, Welcome to <strong><a href=${url} >Blockbuster 🎞</a></strong> experience! Hope you to enjoy it!!</p>`,
 //     });
@@ -52,7 +52,7 @@
 //     console.log({email})
 //         await  transporter.sendMail({
 //         from: `"BLOCKBUSTER"<blockbusterpg@gmail.com>` ,
-//         to: `fselvarolo28@gmail.com`,
+//         to: ``,
 //         subject: "BLOCKBUSTER PF",
 //         html: `<p>Ops!! You got banned😤<strong>. Please click here to go<a href=${url}> Blockbuster Website 🎞</a></strong></p>`,
 //       });

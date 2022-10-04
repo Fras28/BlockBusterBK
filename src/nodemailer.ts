@@ -6,7 +6,7 @@
 //     secure: true,
 //     auth: {
 //       user: "blockbusterpg@gmail.com", // generated ethereal user
-//       pass: "dufdymmcmzuaspnd", // generated ethereal password
+//       pass: process.env.PASSNODE, // generated ethereal password
 //     },
 //   });
 
