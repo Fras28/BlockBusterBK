@@ -13,5 +13,5 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
   dialect: "postgres",
   logging: false,
 });
-console.log(sequelize)
+
 export default sequelize;
