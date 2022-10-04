@@ -15,7 +15,7 @@ dotenv.config();
 dbInit();
 
 const app: Application = express();
-const port = process.env.PORT || 3000 ;
+const port = process.env.PORT ;
 
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
