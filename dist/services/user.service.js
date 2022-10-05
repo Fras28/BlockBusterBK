@@ -35,9 +35,21 @@ class UserService {
             return userX;
         });
     }
+    defineCategoryGoldToken(id, token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let userX = yield users_model_1.default.update({ token }, { where: { id } });
+            return userX;
+        });
+    }
     defineCategorySilver(id) {
         return __awaiter(this, void 0, void 0, function* () {
             let userX = yield users_model_1.default.update({ category: "silver" }, { where: { id } });
+            return userX;
+        });
+    }
+    defineCategorySilverToken(id, token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let userX = yield users_model_1.default.update({ token }, { where: { id } });
             return userX;
         });
     }
