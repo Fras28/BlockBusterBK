@@ -16,7 +16,7 @@ exports.bannComments = exports.getUser = exports.fullUsers = exports.suspMovie =
 const users_model_1 = __importDefault(require("../db/models/users.model"));
 const admin_service_1 = require("../services/admin.service");
 const adminService = new admin_service_1.AdminService(new users_model_1.default());
-//Bannear usuario
+//Bannear usuariooo
 const bannUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     try {

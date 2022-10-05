@@ -82,19 +82,19 @@ export class UserService {
     let mapMail = emailUser.map((e) => e.email);
     return mapMail;
   }
-
   async newFav(idMovie: number, idUser: number) {
-    let newARR: Array<Fav> = await favMovies.findAll({ where: { idUser } });
-    let arrFav = newARR.filter((e) => e.idMovie === idMovie);
-    const ojbeto = { idMovie, idUser };
-    if (!arrFav.length) {
-      const lista = await favMovies.create(ojbeto, { validate: true });
+    let movie = await favMovies.findOne({ where: { idUser, idMovie } });
+    if (!movie) {
+      const lista = await favMovies.create(
+        { idMovie, idUser },
+        { validate: true }
+      );
       return lista;
     }
-    if (arrFav.length) {
-      let arrNoFav = await favMovies.destroy({ where: { id: arrFav[0].id } });
+    if (movie) {
+      let arrNoFav = await movie.destroy()
       return arrNoFav;
-    } else throw new Error();
+    } 
   }
 
   async listFav() {
