@@ -3,7 +3,6 @@ import { where } from "sequelize";
 import favMovies from "../db/models/favMovies";
 import users from "../db/models/users.model";
 
-type Category = "user" | "silver" | "gold";
 
 export type User = {
   id?: number;
@@ -14,7 +13,8 @@ export type User = {
   date: string;
   email: string;
   status: boolean;
-  category: Category;
+  category: string;
+  token: string;
   limiter?: string;
 };
 
@@ -41,10 +41,21 @@ export class UserService {
     return userX;
   }
 
+  async defineCategoryGoldToken(id: number, token: string) {
+    let userX = await users.update({ token },{ where: { id } });
+    return userX;
+  } 
+
   async defineCategorySilver(id: number) {
     let userX = await users.update({ category: "silver" }, { where: { id } });
     return userX;
-  }
+  } 
+
+  async defineCategorySilverToken(id: number, token: string) {
+    let userX = await users.update({ token },{ where: { id } });
+    return userX;
+  } 
+
   async defineCategoryUser(id: number) {
     let userX = await users.update({ category: "user" }, { where: { id } });
 

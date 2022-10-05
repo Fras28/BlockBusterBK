@@ -12,6 +12,7 @@ interface UsersAttributes {
   email: string;
   status: boolean;
   category: string;
+  token: string;
   limiter?:string;//0 if(category:silver){update(limitador+1) if(limitado >20){(update(category:"user"))}}
   //
 }
@@ -25,6 +26,7 @@ class users extends Model<UsersAttributes> {
   public email!: string;
   public status!: boolean;         
   public category!: string;
+  public token!: string;
   public limiter !:string;
 
 
@@ -62,6 +64,9 @@ users.init(
       type: DataTypes.BOOLEAN,
     },
     category: {
+      type: DataTypes.STRING,
+    },
+    token: {
       type: DataTypes.STRING,
     },
     limiter:{

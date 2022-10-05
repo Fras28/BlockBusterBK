@@ -37,6 +37,9 @@ users.init({
     category: {
         type: sequelize_1.DataTypes.STRING,
     },
+    token: {
+        type: sequelize_1.DataTypes.STRING,
+    },
     limiter: {
         type: sequelize_1.DataTypes.STRING,
     },
