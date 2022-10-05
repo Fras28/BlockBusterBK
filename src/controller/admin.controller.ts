@@ -4,7 +4,7 @@ import { AdminService } from "../services/admin.service";
 
 const adminService = new AdminService(new users());
 
-//Bannear usuario
+//Bannear usuariooo
 export const bannUser = async (req: Request, res: Response) => {
   const { id } = req.body;
   try {
