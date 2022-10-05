@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.abi = exports.gold = exports.executePaymentGold = exports.createPaymentGold = void 0;
+exports.apiGold = exports.executePaymentGold = exports.goldToken = exports.createPaymentGold = void 0;
 const axios_1 = __importDefault(require("axios"));
 const users_controller_1 = require("./users.controller");
 const CLIENT = "AZ3uE4WtcfAbqy5f_Ak2Uxnqd4sCZH5EyG1LeOAzz072y_I-IPyzY3esn1BRJ0KWpqulbcq-5NnGQxVB";
@@ -49,7 +49,17 @@ const createPaymentGold = (req, res) => __awaiter(void 0, void 0, void 0, functi
     res.send({ data: result.data.links[1].href });
 });
 exports.createPaymentGold = createPaymentGold;
-var data2 = [];
+const goldToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id, token } = req.body;
+        users_controller_1.usersService.defineCategoryGoldToken(id, token);
+    }
+    catch (e) {
+        console.log(e);
+    }
+    res.send("token sended");
+});
+exports.goldToken = goldToken;
 const executePaymentGold = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { token } = req.query;
     const response = yield axios_1.default.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`, {}, {
@@ -59,21 +69,17 @@ const executePaymentGold = (req, res) => __awaiter(void 0, void 0, void 0, funct
         },
     });
     // usersService.defineCategoryGold(id)
-    data2.push(response.data);
-    res.redirect("https://blockbuster-pf.vercel.app/gold");
+    res.redirect("payment silver succes");
 });
 exports.executePaymentGold = executePaymentGold;
-const gold = () => {
-    console.log(data2, "Gold...");
-    return data2;
-};
-exports.gold = gold;
-const abi = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.body;
-    let api = (0, exports.gold)();
-    if (api) {
+const apiGold = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.body;
         users_controller_1.usersService.defineCategoryGold(id);
+        res.send("category changed to gold");
     }
-    res.send(api);
+    catch (e) {
+        console.log(e);
+    }
 });
-exports.abi = abi;
+exports.apiGold = apiGold;

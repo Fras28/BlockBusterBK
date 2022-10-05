@@ -7,6 +7,7 @@ const comments_controller_1 = require("../controller/comments.controller");
 const admin_controller_1 = require("../controller/admin.controller");
 const paymentGold_controller_1 = require("../controller/paymentGold.controller");
 const paymentSilver_controller_1 = require("../controller/paymentSilver.controller");
+// import { nodemailerAddMovie, nodemailerBannUser, nodemailerCreateUser } from "../controller/nodemailer";
 const router = (0, express_1.Router)();
 //------------------------------------- GETS DE MOVIES--------------------------------
 //GET ALL MOVIES
@@ -58,6 +59,13 @@ router.post('/addM', blockbuster_controller_1.addMovie);
 //------------------------------------- POSTS/PUTS DE COMMENTS BY ADMIN-------------------------------
 //BANN COMMENT
 router.put("/bannComments", admin_controller_1.bannComments);
+//-------------------------------------- NODEMAILER------------------------------------------
+// //SEND SPAM NEW MOVIE 
+// router.get("/nodemailer", nodemailerAddMovie)
+// //SEND SPAM WELCOME EMAILS TO CLIENTS
+// router.get("/nodemaileru", nodemailerCreateUser)
+// //SEND SPAM THE THE ADMIN BANN SOMEONE
+// router.get("/nodemailerb", nodemailerBannUser)
 //---------------------------------------------- PAYPAL ---------------------------------------------------------
 //    http://localhost:3000/create-paymentGold [POST]
 router.post('/create-paymentGold', paymentGold_controller_1.createPaymentGold);
@@ -68,7 +76,11 @@ router.post('/create-paymentSilver', paymentSilver_controller_1.createPaymentSil
 //PAYMENT
 router.get('/execute-paymentSilver', paymentSilver_controller_1.executePaymentSilver);
 //CHANGE GOLD
-router.put('/abi', paymentGold_controller_1.abi);
+router.put('/apiGold', paymentGold_controller_1.apiGold);
 //CHANGE SILVER
 router.put('/apiSilver', paymentSilver_controller_1.apiSilver);
+//FUNCION PARA SETEAR TOKEN SILVER
+router.put("/setTokenSilver", paymentSilver_controller_1.silverToken);
+//FUNCION PARA SETEAR TOKEN GOLD
+router.put("/setTokenGold", paymentGold_controller_1.goldToken);
 exports.default = router;

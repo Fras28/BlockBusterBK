@@ -42,7 +42,19 @@ export const createPaymentGold = async (req: Request, res: Response) => {
   res.send({ data: result.data.links[1].href });
 };
 
-var data2: any[] = [];
+
+
+
+export const goldToken = async (req: Request, res: Response) => {
+  try {
+    const { id, token } = req.body;
+    usersService.defineCategoryGoldToken(id, token);
+  } catch (e) {
+    console.log(e);
+  }
+  res.send("token sended");
+};
+
 
 export const executePaymentGold = async (req: Request, res: Response) => {
   const { token } = req.query;
@@ -57,20 +69,19 @@ export const executePaymentGold = async (req: Request, res: Response) => {
     }
   );
   // usersService.defineCategoryGold(id)
-  data2.push(response.data);
-  res.redirect("https://blockbuster-pf.vercel.app/gold");
+
+  res.redirect("payment silver succes");
 };
 
-export const gold = () => {
-  console.log(data2, "Gold...");
-  return data2;
-};
 
-export const abi = async (req: Request, res: Response) => {
-  const { id } = req.body;
-  let api = gold();
-  if (api) {
+
+export const apiGold = async (req: Request, res: Response) => {
+  try{
+    const { id } = req.body;
     usersService.defineCategoryGold(id);
+      res.send("category changed to gold");
+  }catch(e){
+    console.log(e)
   }
-  res.send(api);
+
 };
