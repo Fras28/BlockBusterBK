@@ -86,19 +86,15 @@ class UserService {
     }
     newFav(idMovie, idUser) {
         return __awaiter(this, void 0, void 0, function* () {
-            let newARR = yield favMovies_1.default.findAll({ where: { idUser } });
-            let arrFav = newARR.filter((e) => e.idMovie === idMovie);
-            const ojbeto = { idMovie, idUser };
-            if (!arrFav.length) {
-                const lista = yield favMovies_1.default.create(ojbeto, { validate: true });
+            let movie = yield favMovies_1.default.findOne({ where: { idUser, idMovie } });
+            if (!movie) {
+                const lista = yield favMovies_1.default.create({ idMovie, idUser }, { validate: true });
                 return lista;
             }
-            if (arrFav.length) {
-                let arrNoFav = yield favMovies_1.default.destroy({ where: { id: arrFav[0].id } });
+            if (movie) {
+                let arrNoFav = yield movie.destroy();
                 return arrNoFav;
             }
-            else
-                throw new Error();
         });
     }
     listFav() {
