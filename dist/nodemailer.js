@@ -11,7 +11,7 @@ exports.transporter = nodemailer_1.default.createTransport({
     secure: true,
     auth: {
         user: "blockbusterpfg@gmail.com",
-        pass: "qvxtamftvhfjuzzu", // generated ethereal password
+        pass: process.env.PASSNODE, // generated ethereal password
     },
 });
 exports.transporter.verify().then(() => {

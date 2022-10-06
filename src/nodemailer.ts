@@ -6,7 +6,7 @@ import nodemailer from "nodemailer"
     secure: true,
     auth: {
       user: "blockbusterpfg@gmail.com", // generated ethereal user
-      pass: "qvxtamftvhfjuzzu", // generated ethereal password
+      pass: process.env.PASSNODE, // generated ethereal password
     },
   });
 
