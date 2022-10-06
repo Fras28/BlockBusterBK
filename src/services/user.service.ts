@@ -3,7 +3,6 @@ import { where } from "sequelize";
 import favMovies from "../db/models/favMovies";
 import users from "../db/models/users.model";
 
-
 export type User = {
   id?: number;
   name: string;
@@ -42,23 +41,22 @@ export class UserService {
   }
 
   async defineCategoryGoldToken(id: number, token: string) {
-    let userX = await users.update({ token },{ where: { id } });
+    let userX = await users.update({ token }, { where: { id } });
     return userX;
-  } 
+  }
 
   async defineCategorySilver(id: number) {
     let userX = await users.update({ category: "silver" }, { where: { id } });
     return userX;
-  } 
+  }
 
   async defineCategorySilverToken(id: number, token: string) {
-    let userX = await users.update({ token },{ where: { id } });
+    let userX = await users.update({ token }, { where: { id } });
     return userX;
-  } 
+  }
 
   async defineCategoryUser(id: number) {
     let userX = await users.update({ category: "user" }, { where: { id } });
-
     return userX;
   }
 
@@ -67,7 +65,7 @@ export class UserService {
     return deletUser;
   }
 
-  async changePic(name: string, date:string,lastname: string, id: number) {
+  async changePic(name: string, date: string, lastname: string, id: number) {
     let userX = await users.update({ name, lastname, date }, { where: { id } });
     return userX;
   }
@@ -102,33 +100,73 @@ export class UserService {
     return listMovies;
   }
 
-  async limiter(id: number, idMovie: string) {
+  async limiter(id: number, idMovie: number) {
     const userX = await users.findAll({ where: { id } });
+    let limi = userX[0].limiter;
+    let array = [];
+    let rta;
     if (userX[0].category === "silver") {
-      const limi = userX[0].limiter;
-      const rta = limi + "," + idMovie;
-      await users.update({ limiter: rta }, { where: { id } });
-      if (userX[0].limiter.slice(0, 19)) {
-        await users.update({ category: "user" }, { where: { id } });
-       await users.update({ limiter: "" }, { where: { id } });
-       const userX1 = await users.findAll({ where: { id } });
-       return userX1[0];
+      if (limi === "" || limi === null) {
+        limi = idMovie.toString();
+        await users.update({ limiter: limi }, { where: { id } });
+      } else {
+        rta = limi + "," + idMovie;
+        array.push(rta);
+        let array1 = array[0].split(",");
+        console.log(array1, "aca estoy array1");
+        const data = new Set(array1);
+        let allMovie = [...data];
+        console.log(allMovie, "aca all");
+        console.log("aca andamos", allMovie);
+        if (allMovie.length > 20) {
+          throw new Error();
+        }
+        let data1 = allMovie.toString();
+        await users.update({ limiter: data1 }, { where: { id } });
+        //let result = limi.split(",");
+        console.log("aca andamos", allMovie);
+        if (allMovie.length > 20) {
+          throw new Error();
+        }
+      }
+      return userX[0];
+    } 
+    else {
+      const userx = users.findAll({ where: { id } });
+      console.log(`Hey ${userX} Your plan expired`);
+    }
+
+    //gold
+
+    if (userX[0].category === "gold") {
+      if (limi === "" || limi === null) {
+        limi = idMovie.toString();
+        await users.update({ limiter: limi }, { where: { id } });
+      } else {
+        rta = limi + "," + idMovie;
+        array.push(rta);
+        let array1 = array[0].split(",");
+        console.log(array1, "aca estoy array1");
+        const data = new Set(array1);
+        let allMovie = [...data];
+        console.log(allMovie, "aca all");
+        console.log("aca andamos", allMovie);
+        if (allMovie.length > 40) {
+          throw new Error();
+        }
+        let data1 = allMovie.toString();
+        await users.update({ limiter: data1 }, { where: { id } });
+        //let result = limi.split(",");
+        console.log("aca andamos", allMovie);
+        if (allMovie.length > 40) {
+          throw new Error();
+        }
       }
       return userX[0];
     }
-    if (userX[0].category === "gold") {
-      const limi = userX[0].limiter;
-      const rta = limi + "," + idMovie;
-      await users.update({ limiter: rta }, { where: { id } });
-      if (userX[0].limiter.slice(0, 39)) {
-        await users.update({ category: "user" }, { where: { id } });
-       await users.update({ limiter: "" }, { where: { id } });
-       const userX1 = await users.findAll({ where: { id } });
-       return userX1[0];
-      }
-      return userX[0];
-    } else {
-      throw new Error();
+    else {
+      const userx = users.findAll({ where: { id } });
+      console.log(`Hey ${userX} Your plan expired`);
     }
   }
 }

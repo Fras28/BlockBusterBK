@@ -110,32 +110,71 @@ class UserService {
     limiter(id, idMovie) {
         return __awaiter(this, void 0, void 0, function* () {
             const userX = yield users_model_1.default.findAll({ where: { id } });
+            let limi = userX[0].limiter;
+            let array = [];
+            let rta;
             if (userX[0].category === "silver") {
-                const limi = userX[0].limiter;
-                const rta = limi + "," + idMovie;
-                yield users_model_1.default.update({ limiter: rta }, { where: { id } });
-                if (userX[0].limiter.slice(0, 19)) {
-                    yield users_model_1.default.update({ category: "user" }, { where: { id } });
-                    yield users_model_1.default.update({ limiter: "" }, { where: { id } });
-                    const userX1 = yield users_model_1.default.findAll({ where: { id } });
-                    return userX1[0];
+                if (limi === "" || limi === null) {
+                    limi = idMovie.toString();
+                    yield users_model_1.default.update({ limiter: limi }, { where: { id } });
                 }
-                return userX[0];
-            }
-            if (userX[0].category === "gold") {
-                const limi = userX[0].limiter;
-                const rta = limi + "," + idMovie;
-                yield users_model_1.default.update({ limiter: rta }, { where: { id } });
-                if (userX[0].limiter.slice(0, 39)) {
-                    yield users_model_1.default.update({ category: "user" }, { where: { id } });
-                    yield users_model_1.default.update({ limiter: "" }, { where: { id } });
-                    const userX1 = yield users_model_1.default.findAll({ where: { id } });
-                    return userX1[0];
+                else {
+                    rta = limi + "," + idMovie;
+                    array.push(rta);
+                    let array1 = array[0].split(",");
+                    console.log(array1, "aca estoy array1");
+                    const data = new Set(array1);
+                    let allMovie = [...data];
+                    console.log(allMovie, "aca all");
+                    console.log("aca andamos", allMovie);
+                    if (allMovie.length > 20) {
+                        throw new Error();
+                    }
+                    let data1 = allMovie.toString();
+                    yield users_model_1.default.update({ limiter: data1 }, { where: { id } });
+                    //let result = limi.split(",");
+                    console.log("aca andamos", allMovie);
+                    if (allMovie.length > 20) {
+                        throw new Error();
+                    }
                 }
                 return userX[0];
             }
             else {
-                throw new Error();
+                const userx = users_model_1.default.findAll({ where: { id } });
+                console.log(`Hey ${userX} Your plan expired`);
+            }
+            //gold
+            if (userX[0].category === "gold") {
+                if (limi === "" || limi === null) {
+                    limi = idMovie.toString();
+                    yield users_model_1.default.update({ limiter: limi }, { where: { id } });
+                }
+                else {
+                    rta = limi + "," + idMovie;
+                    array.push(rta);
+                    let array1 = array[0].split(",");
+                    console.log(array1, "aca estoy array1");
+                    const data = new Set(array1);
+                    let allMovie = [...data];
+                    console.log(allMovie, "aca all");
+                    console.log("aca andamos", allMovie);
+                    if (allMovie.length > 40) {
+                        throw new Error();
+                    }
+                    let data1 = allMovie.toString();
+                    yield users_model_1.default.update({ limiter: data1 }, { where: { id } });
+                    //let result = limi.split(",");
+                    console.log("aca andamos", allMovie);
+                    if (allMovie.length > 40) {
+                        throw new Error();
+                    }
+                }
+                return userX[0];
+            }
+            else {
+                const userx = users_model_1.default.findAll({ where: { id } });
+                console.log(`Hey ${userX} Your plan expired`);
             }
         });
     }

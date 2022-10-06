@@ -7,7 +7,7 @@ const comments_controller_1 = require("../controller/comments.controller");
 const admin_controller_1 = require("../controller/admin.controller");
 const paymentGold_controller_1 = require("../controller/paymentGold.controller");
 const paymentSilver_controller_1 = require("../controller/paymentSilver.controller");
-// import { nodemailerAddMovie, nodemailerBannUser, nodemailerCreateUser } from "../controller/nodemailer";
+const nodemailer_1 = require("../controller/nodemailer");
 const router = (0, express_1.Router)();
 //------------------------------------- GETS DE MOVIES--------------------------------
 //GET ALL MOVIES
@@ -49,23 +49,27 @@ router.put("/bannUser", admin_controller_1.bannUser);
 router.put("/unBannUser", admin_controller_1.unBannUser);
 //CREATE NEW ADMIN--> necesito id(numerico) por body
 router.put("/createAdm", admin_controller_1.newAdmin);
-//DELETE USERS
+//DELETE USERS 
 router.post('/deletUser', users_controller_1.deletUser);
 //------------------------------------- POSTS/PUTS DE MOVIES BY ADMIN-------------------------------
 //SUSPEND MOVIE--> necesito id(numerico) por body
 router.put("/removeM", admin_controller_1.suspMovie);
 //POSTS MOVIE--> el modelo de blockbusters(esta en ds en Info-Back)
 router.post('/addM', blockbuster_controller_1.addMovie);
+//LIMITER GOLD/SILVER
+router.put("/limiter", users_controller_1.addLimit);
 //------------------------------------- POSTS/PUTS DE COMMENTS BY ADMIN-------------------------------
 //BANN COMMENT
 router.put("/bannComments", admin_controller_1.bannComments);
 //-------------------------------------- NODEMAILER------------------------------------------
-// //SEND SPAM NEW MOVIE 
+//SEND SPAM NEW MOVIE 
 // router.get("/nodemailer", nodemailerAddMovie)
-// //SEND SPAM WELCOME EMAILS TO CLIENTS
-// router.get("/nodemaileru", nodemailerCreateUser)
-// //SEND SPAM THE THE ADMIN BANN SOMEONE
-// router.get("/nodemailerb", nodemailerBannUser)
+//SEND SPAM WELCOME EMAILS TO CLIENTS
+router.get("/nodemaileru", nodemailer_1.nodemailerCreateUser);
+//SEND SPAM THE THE ADMIN BANN SOMEONE
+router.get("/nodemailerb", nodemailer_1.nodemailerBannUser);
+//UNBANN USER
+router.get("/nodemailerun", nodemailer_1.nodemailerUnbannUser);
 //---------------------------------------------- PAYPAL ---------------------------------------------------------
 //    http://localhost:3000/create-paymentGold [POST]
 router.post('/create-paymentGold', paymentGold_controller_1.createPaymentGold);
