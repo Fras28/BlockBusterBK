@@ -86,4 +86,18 @@
 // }
 
 
- 
+//    async limiter(id: number, idMovie: number) {
+//     let arr: any;
+//     let limiterModel = await users.findOne({ where: { id } });
+//     let resLimiter = limiterModel?.limiter;
+//     if (resLimiter === null) {
+//       resLimiter =  idMovie.toString();
+//       let res = await users.update({ limiter: resLimiter }, { where: { id } });
+//     } else {
+//       resLimiter = idMovie + `,` + resLimiter ;
+//       let res = await users.update({ limiter: resLimiter }, { where: { id } });
+//       let resSplit: any = await users.findOne({ where: { id } });
+//       let response: string =  resSplit.limiter
+      
+//     }
+//   } 

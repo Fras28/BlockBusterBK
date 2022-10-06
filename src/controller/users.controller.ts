@@ -24,7 +24,7 @@ export const addLimit = async (req: Request, res: Response)=>{
   }catch{
     res.status(400).send('Your limit exceeded 💔 ')
   }
-}
+};
 
 export const deletUser = async (req: Request, res: Response) => {
   const {id} = req.body;
@@ -34,7 +34,7 @@ export const deletUser = async (req: Request, res: Response) => {
   }catch(e){
     res.status(400).send("User not found");
   }
-}
+};
 
 //POSTA PARA CAMBIO DE FOTO
 export const editUser = async (req: Request, res: Response) => {
@@ -56,12 +56,13 @@ export const addFav = async(req: Request, res: Response) => {
   }catch(e){
     res.status(404).send("bad request")
   }
-}
+};
+
 export const listFav = async(req: Request, res: Response) => {
  try{const allFavList = await usersService.listFav()
   return res.status(200).send(allFavList)
 } catch(e){
     res.status(404).send("Empty fav list")
   }
-}
+};
 
