@@ -7,7 +7,7 @@ const comments_controller_1 = require("../controller/comments.controller");
 const admin_controller_1 = require("../controller/admin.controller");
 const paymentGold_controller_1 = require("../controller/paymentGold.controller");
 const paymentSilver_controller_1 = require("../controller/paymentSilver.controller");
-const nodemailer_1 = require("../controller/nodemailer");
+//import { nodemailerBannUser, nodemailerCreateUser, nodemailerUnbannUser } from "../controller/nodemailer";
 const router = (0, express_1.Router)();
 //------------------------------------- GETS DE MOVIES--------------------------------
 //GET ALL MOVIES
@@ -65,11 +65,11 @@ router.put("/bannComments", admin_controller_1.bannComments);
 //SEND SPAM NEW MOVIE 
 // router.get("/nodemailer", nodemailerAddMovie)
 //SEND SPAM WELCOME EMAILS TO CLIENTS
-router.get("/nodemaileru", nodemailer_1.nodemailerCreateUser);
+//router.get("/nodemaileru", nodemailerCreateUser)
 //SEND SPAM THE THE ADMIN BANN SOMEONE
-router.get("/nodemailerb", nodemailer_1.nodemailerBannUser);
+//router.get("/nodemailerb", nodemailerBannUser)
 //UNBANN USER
-router.get("/nodemailerun", nodemailer_1.nodemailerUnbannUser);
+//router.get("/nodemailerun", nodemailerUnbannUser)
 //---------------------------------------------- PAYPAL ---------------------------------------------------------
 //    http://localhost:3000/create-paymentGold [POST]
 router.post('/create-paymentGold', paymentGold_controller_1.createPaymentGold);
