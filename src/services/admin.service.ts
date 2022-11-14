@@ -11,6 +11,7 @@ export type Product = {
   description: string;
   photo: string;
   rated: string;
+  price:number;
   status: boolean;  
 };
 
@@ -98,6 +99,10 @@ export class AdminService {
       let userX = await ProductM.update({ rated: element }, { where: { id } });
       return userX;
     }
+  }
+  async changePrice(id:number,element:number){
+    let userX = await ProductM.update({ price: element }, { where: { id } });
+    return userX;
   }
 
   async defineAdmin(id: number) {

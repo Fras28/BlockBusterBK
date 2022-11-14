@@ -7,6 +7,7 @@ interface ProductsAttributes {
   description: string;
   photo: string;
   rated: string;
+  price:number;
   status: boolean;
 }
 
@@ -16,6 +17,7 @@ class product extends Model<ProductsAttributes> {
   public description!: string;
   public photo!: string;
   public rated!: string;
+  public price!:number;
   public status!: boolean;
 
   public readonly createdAt!: Date;
@@ -42,9 +44,12 @@ product.init(
     rated: {
       type: DataTypes.STRING,
     },
+    price:{
+      type: DataTypes.NUMBER,
+    },
     status: {
       type: DataTypes.BOOLEAN,
-    },
+    }
   },
   { sequelize: sequelizeConnection, paranoid: true }
 );

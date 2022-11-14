@@ -69,8 +69,11 @@ export const newProduct = async (req: Request, res: Response) => {
 export const editProduct = async(req:Request, res:Response)=>{
   const { stat, element, id } = req.body;
   try {
+    if(element.typeof === "string"){
     await adminService.modifierProduct(stat, element, id);
-    res.status(200).send(`the product was successfully modified`);
+    res.status(200).send(`the product was successfully modified`);}
+    else {await adminService.changePrice(element, id)
+    res.status(200).send(`the product price was successfully modified`);}
   } catch (e) {
     res.status(400).send("something went rong whit this Prodcut, or already exists ");
   }
