@@ -13,9 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminService = void 0;
-const blockbuster_model_1 = __importDefault(require("../db/models/blockbuster.model"));
+const products_model_1 = __importDefault(require("../db/models/products.model"));
 const users_model_1 = __importDefault(require("../db/models/users.model"));
 const coments_model_1 = __importDefault(require("../db/models/coments.model"));
+const products_model_2 = __importDefault(require("../db/models/products.model"));
 class AdminService {
     constructor(UserModel) {
         this.UserModel = UserModel;
@@ -32,26 +33,50 @@ class AdminService {
             return userX;
         });
     }
-    addMovie(movie) {
+    addProduct(product) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(movie);
-            const findInDb = blockbuster_model_1.default.findOne({ where: { name: movie.name } });
+            const findInDb = yield products_model_1.default.findOne({ where: { name: product.name } });
+            console.log(findInDb);
             if (!findInDb) {
-                return yield blockbuster_model_1.default.create(movie, { validate: true });
+                return yield products_model_1.default.create(product, { validate: true });
             }
             throw Error;
         });
     }
-    statusMovie(id) {
+    statusProduct(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const movieInfo = yield blockbuster_model_1.default.findAll({ where: { id } });
-            if (movieInfo[0].status === true) {
-                const byeMovie = yield blockbuster_model_1.default.update({ status: false }, { where: { id } });
-                return !!byeMovie;
+            const productInfo = yield products_model_1.default.findAll({ where: { id } });
+            if (productInfo[0].status === true) {
+                const byeProduct = yield products_model_1.default.update({ status: false }, { where: { id } });
+                return !!byeProduct;
             }
             else {
-                const byeMovie = yield blockbuster_model_1.default.update({ status: true }, { where: { id } });
-                return !!byeMovie;
+                const byeProduct = yield products_model_1.default.update({ status: true }, { where: { id } });
+                return !!byeProduct;
+            }
+        });
+    }
+    //  name: string;
+    //   description: string;
+    //   photo: string;
+    //   rated: string;
+    modifierProduct(stat, element, id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (stat === "name") {
+                let userX = yield products_model_2.default.update({ name: element }, { where: { id } });
+                return userX;
+            }
+            if (stat === "description") {
+                let userX = yield products_model_2.default.update({ description: element }, { where: { id } });
+                return userX;
+            }
+            if (stat === "photo") {
+                let userX = yield products_model_2.default.update({ photo: element }, { where: { id } });
+                return userX;
+            }
+            if (stat === "rated") {
+                let userX = yield products_model_2.default.update({ rated: element }, { where: { id } });
+                return userX;
             }
         });
     }
@@ -63,88 +88,99 @@ class AdminService {
     }
     editeName(id, string) {
         return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ name: string }, { where: { id } });
+            let editName = yield products_model_1.default.update({ name: string }, { where: { id } });
             return editName;
         });
     }
-    editeYear(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ year: string }, { where: { id } });
-            return editName;
-        });
-    }
+    // async editeYear(id: number, string: string) {
+    //   let editName = await Products.update(
+    //     { year: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
     editePoster(id, string) {
         return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ poster: string }, { where: { id } });
+            let editName = yield products_model_1.default.update({ photo: string }, { where: { id } });
             return editName;
         });
     }
-    editeGenre(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ genre: string }, { where: { id } });
-            return editName;
-        });
-    }
-    editeCountry(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ country: string }, { where: { id } });
-            return editName;
-        });
-    }
+    // async editeGenre(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { genre: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
+    // async editeCountry(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { country: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
     editeRated(id, string) {
         return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ rated: string }, { where: { id } });
+            let editName = yield products_model_1.default.update({ rated: string }, { where: { id } });
             return editName;
         });
     }
-    editeReleased(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ released: string }, { where: { id } });
-            return editName;
-        });
-    }
-    editeRuntime(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ runtime: string }, { where: { id } });
-            return editName;
-        });
-    }
-    editeDirector(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ director: string }, { where: { id } });
-            return editName;
-        });
-    }
-    editeActors(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ actors: string }, { where: { id } });
-            return editName;
-        });
-    }
-    editePlot(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ plot: string }, { where: { id } });
-            return editName;
-        });
-    }
-    editeLanguage(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ language: string }, { where: { id } });
-            return editName;
-        });
-    }
-    editeimdbVotes(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ imdbVotes: string }, { where: { id } });
-            return editName;
-        });
-    }
-    editeimdbRating(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield blockbuster_model_1.default.update({ imdbRating: string }, { where: { id } });
-            return editName;
-        });
-    }
+    // async editeReleased(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { released: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
+    // async editeRuntime(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { runtime: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
+    // async editeDirector(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { director: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
+    // async editeActors(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { actors: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
+    // async editePlot(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { plot: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
+    // async editeLanguage(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { language: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
+    // async editeimdbVotes(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { imdbVotes: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
+    // async editeimdbRating(id: number, string: string) {
+    //   let editName = await Blockbuster.update(
+    //     { imdbRating: string },
+    //     { where: { id } }
+    //   );
+    //   return editName;
+    // }
     getUserByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
             let emailUser = yield users_model_1.default.findOne({ where: { email } });

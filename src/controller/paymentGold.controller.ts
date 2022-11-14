@@ -75,13 +75,13 @@ export const executePaymentGold = async (req: Request, res: Response) => {
 
 
 
-export const apiGold = async (req: Request, res: Response) => {
-  try{
-    const { id } = req.body;
-    usersService.defineCategoryGold(id);
-      res.send("category changed to gold");
-  }catch(e){
-    console.log(e)
-  }
+// export const apiGold = async (req: Request, res: Response) => {
+//   try{
+//     const { id } = req.body;
+//     usersService.defineCategoryGold(id);
+//       res.send("category changed to gold");
+//   }catch(e){
+//     console.log(e)
+//   }
 
-};
+// };

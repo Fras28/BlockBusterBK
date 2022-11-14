@@ -16,15 +16,15 @@ export const addUser = async (req: Request, res: Response) => {
   }
 };
 
-export const addLimit = async (req: Request, res: Response)=>{
-  const {id, idMovie} = req.body;
-  try{
-    await usersService.limiter(id, idMovie);
-    res.status(200).send('+1 limiter Movie ❤️')
-  }catch{
-    res.status(400).send('Your limit exceeded 💔 ')
-  }
-};
+// export const addLimit = async (req: Request, res: Response)=>{
+//   const {id, idMovie} = req.body;
+//   try{
+//     await usersService.limiter(id, idMovie);
+//     res.status(200).send('+1 limiter Movie ❤️')
+//   }catch{
+//     res.status(400).send('Your limit exceeded 💔 ')
+//   }
+// };
 
 export const deletUser = async (req: Request, res: Response) => {
   const {id} = req.body;

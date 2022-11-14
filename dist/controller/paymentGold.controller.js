@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.apiGold = exports.executePaymentGold = exports.goldToken = exports.createPaymentGold = void 0;
+exports.executePaymentGold = exports.goldToken = exports.createPaymentGold = void 0;
 const axios_1 = __importDefault(require("axios"));
 const users_controller_1 = require("./users.controller");
 const CLIENT = "AZ3uE4WtcfAbqy5f_Ak2Uxnqd4sCZH5EyG1LeOAzz072y_I-IPyzY3esn1BRJ0KWpqulbcq-5NnGQxVB";
@@ -72,14 +72,12 @@ const executePaymentGold = (req, res) => __awaiter(void 0, void 0, void 0, funct
     res.redirect("payment silver succes");
 });
 exports.executePaymentGold = executePaymentGold;
-const apiGold = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { id } = req.body;
-        users_controller_1.usersService.defineCategoryGold(id);
-        res.send("category changed to gold");
-    }
-    catch (e) {
-        console.log(e);
-    }
-});
-exports.apiGold = apiGold;
+// export const apiGold = async (req: Request, res: Response) => {
+//   try{
+//     const { id } = req.body;
+//     usersService.defineCategoryGold(id);
+//       res.send("category changed to gold");
+//   }catch(e){
+//     console.log(e)
+//   }
+// };

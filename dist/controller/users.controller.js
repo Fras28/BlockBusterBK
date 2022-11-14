@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.listFav = exports.addFav = exports.editUser = exports.deletUser = exports.addLimit = exports.addUser = exports.usersService = void 0;
+exports.listFav = exports.addFav = exports.editUser = exports.deletUser = exports.addUser = exports.usersService = void 0;
 const users_model_1 = __importDefault(require("../db/models/users.model"));
 const user_service_1 = require("../services/user.service");
 exports.usersService = new user_service_1.UserService(new users_model_1.default());
@@ -29,17 +29,15 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.addUser = addUser;
-const addLimit = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id, idMovie } = req.body;
-    try {
-        yield exports.usersService.limiter(id, idMovie);
-        res.status(200).send('+1 limiter Movie ❤️');
-    }
-    catch (_a) {
-        res.status(400).send('Your limit exceeded 💔 ');
-    }
-});
-exports.addLimit = addLimit;
+// export const addLimit = async (req: Request, res: Response)=>{
+//   const {id, idMovie} = req.body;
+//   try{
+//     await usersService.limiter(id, idMovie);
+//     res.status(200).send('+1 limiter Movie ❤️')
+//   }catch{
+//     res.status(400).send('Your limit exceeded 💔 ')
+//   }
+// };
 const deletUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     try {

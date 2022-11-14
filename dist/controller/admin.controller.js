@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bannComments = exports.getUser = exports.fullUsers = exports.suspMovie = exports.newMovie = exports.newAdmin = exports.unBannUser = exports.bannUser = void 0;
+exports.bannComments = exports.getUser = exports.fullUsers = exports.suspProduct = exports.editProduct = exports.newProduct = exports.newAdmin = exports.unBannUser = exports.bannUser = void 0;
 const users_model_1 = __importDefault(require("../db/models/users.model"));
 const admin_service_1 = require("../services/admin.service");
 const adminService = new admin_service_1.AdminService(new users_model_1.default());
@@ -74,30 +74,41 @@ const newAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.newAdmin = newAdmin;
 //Crear nueva pelicula
-const newMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const newProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const infoNewMovie = req.body;
     try {
-        yield adminService.addMovie(infoNewMovie);
+        yield adminService.addProduct(infoNewMovie);
         res.status(200).send(`movie: ${infoNewMovie.name}  added successfully👍`);
     }
     catch (e) {
-        res.status(400).send("something went rong whit this Movie");
+        res.status(400).send("something went rong whit this Prodcut, or already exists ");
     }
 });
-exports.newMovie = newMovie;
+exports.newProduct = newProduct;
+const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { stat, element, id } = req.body;
+    try {
+        yield adminService.modifierProduct(stat, element, id);
+        res.status(200).send(`the product was successfully modified`);
+    }
+    catch (e) {
+        res.status(400).send("something went rong whit this Prodcut, or already exists ");
+    }
+});
+exports.editProduct = editProduct;
 //suspender pelicula
-const suspMovie = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const suspProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     console.log(id);
     try {
-        yield adminService.statusMovie(id);
-        res.status(200).send("The movie was Updated");
+        yield adminService.statusProduct(id);
+        res.status(200).send("The article was Updated");
     }
     catch (e) {
-        res.status(400).send("Something went rong whit this Movie ​​");
+        res.status(400).send("Something went rong whit this article ​​");
     }
 });
-exports.suspMovie = suspMovie;
+exports.suspProduct = suspProduct;
 //Busca todos los usuarios
 const fullUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {

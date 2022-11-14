@@ -56,25 +56,34 @@ export const newAdmin = async (req: Request, res: Response) => {
 };
 
 //Crear nueva pelicula
-export const newMovie = async (req: Request, res: Response) => {
+export const newProduct = async (req: Request, res: Response) => {
   const infoNewMovie = req.body;
   try {
-    await adminService.addMovie(infoNewMovie);
+    await adminService.addProduct(infoNewMovie);
     res.status(200).send(`movie: ${infoNewMovie.name}  added successfully👍`);
   } catch (e) {
-    res.status(400).send("something went rong whit this Movie");
+    res.status(400).send("something went rong whit this Prodcut, or already exists ");
   }
 };
 
+export const editProduct = async(req:Request, res:Response)=>{
+  const { stat, element, id } = req.body;
+  try {
+    await adminService.modifierProduct(stat, element, id);
+    res.status(200).send(`the product was successfully modified`);
+  } catch (e) {
+    res.status(400).send("something went rong whit this Prodcut, or already exists ");
+  }
+}
 //suspender pelicula
-export const suspMovie = async (req: Request, res: Response) => {
-  const { id } = req.body;
+export const suspProduct = async (req: Request, res: Response) => {
+  const  {id}  = req.body;
   console.log(id);
   try {
-    await adminService.statusMovie(id);
-    res.status(200).send("The movie was Updated");
+    await adminService.statusProduct(id);
+    res.status(200).send("The article was Updated");
   } catch (e) {
-    res.status(400).send("Something went rong whit this Movie ​​");
+    res.status(400).send("Something went rong whit this article ​​");
   }
 };
 

@@ -1,19 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const blockbuster_controller_1 = require("../controller/blockbuster.controller");
+const products_controller_1 = require("../controller/products.controller");
 const users_controller_1 = require("../controller/users.controller");
 const comments_controller_1 = require("../controller/comments.controller");
 const admin_controller_1 = require("../controller/admin.controller");
-const paymentGold_controller_1 = require("../controller/paymentGold.controller");
-const paymentSilver_controller_1 = require("../controller/paymentSilver.controller");
+// import {apiGold, createPaymentGold, executePaymentGold, goldToken} from "../controller/paymentGold.controller"
+// import {apiSilver, createPaymentSilver, executePaymentSilver, silverToken} from "../controller/paymentSilver.controller"
 //import { nodemailerBannUser, nodemailerCreateUser, nodemailerUnbannUser } from "../controller/nodemailer";
 const router = (0, express_1.Router)();
 //------------------------------------- GETS DE MOVIES--------------------------------
 //GET ALL MOVIES
-router.get("/", blockbuster_controller_1.fullDbMovies);
+router.get("/", products_controller_1.fullDbProducts);
 //GET BY ID MOVIES
-router.get('/detail/:id', blockbuster_controller_1.getMovieId);
+router.get('/detail/:id', products_controller_1.getProdcutId);
 //------------------------------------ GETS DE COMMENTS--------------------------------
 //GET COMMENT ID USER
 router.get("/commentUser", comments_controller_1.byIdCommentsUser);
@@ -53,17 +53,18 @@ router.put("/createAdm", admin_controller_1.newAdmin);
 router.post('/deletUser', users_controller_1.deletUser);
 //------------------------------------- POSTS/PUTS DE MOVIES BY ADMIN-------------------------------
 //SUSPEND MOVIE--> necesito id(numerico) por body
-router.put("/removeM", admin_controller_1.suspMovie);
+router.put("/removeP", admin_controller_1.suspProduct);
 //POSTS MOVIE--> el modelo de blockbusters(esta en ds en Info-Back)
-router.post('/addM', blockbuster_controller_1.addMovie);
-//LIMITER GOLD/SILVER
-router.put("/limiter", users_controller_1.addLimit);
+router.post('/addP', admin_controller_1.newProduct);
+router.put("/editP", admin_controller_1.editProduct);
+// //LIMITER GOLD/SILVER
+// router.put("/limiter", addLimit)
 //------------------------------------- POSTS/PUTS DE COMMENTS BY ADMIN-------------------------------
 //BANN COMMENT
 router.put("/bannComments", admin_controller_1.bannComments);
 //-------------------------------------- NODEMAILER------------------------------------------
 //SEND SPAM NEW MOVIE 
-// router.get("/nodemailer", nodemailerAddMovie)
+// router.get("/nodemailer", nodemaileraddProduct)
 //SEND SPAM WELCOME EMAILS TO CLIENTS
 //router.get("/nodemaileru", nodemailerCreateUser)
 //SEND SPAM THE THE ADMIN BANN SOMEONE
@@ -71,20 +72,20 @@ router.put("/bannComments", admin_controller_1.bannComments);
 //UNBANN USER
 //router.get("/nodemailerun", nodemailerUnbannUser)
 //---------------------------------------------- PAYPAL ---------------------------------------------------------
-//    http://localhost:3000/create-paymentGold [POST]
-router.post('/create-paymentGold', paymentGold_controller_1.createPaymentGold);
-//PAYMENT
-router.get('/execute-paymentGold', paymentGold_controller_1.executePaymentGold);
-//    http://localhost:3000/create-paymentSilver[POST]
-router.post('/create-paymentSilver', paymentSilver_controller_1.createPaymentSilver);
-//PAYMENT
-router.get('/execute-paymentSilver', paymentSilver_controller_1.executePaymentSilver);
+// //    http://localhost:3000/create-paymentGold [POST]
+// router.post('/create-paymentGold', createPaymentGold)
+// //PAYMENT
+// router.get('/execute-paymentGold', executePaymentGold )
+// //    http://localhost:3000/create-paymentSilver[POST]
+// router.post('/create-paymentSilver', createPaymentSilver)
+// //PAYMENT
+// router.get('/execute-paymentSilver', executePaymentSilver)
 //CHANGE GOLD
-router.put('/apiGold', paymentGold_controller_1.apiGold);
-//CHANGE SILVER
-router.put('/apiSilver', paymentSilver_controller_1.apiSilver);
-//FUNCION PARA SETEAR TOKEN SILVER
-router.put("/setTokenSilver", paymentSilver_controller_1.silverToken);
+// router.put('/apiGold', apiGold)
+// //CHANGE SILVER
+// router.put('/apiSilver', apiSilver)
+// //FUNCION PARA SETEAR TOKEN SILVER
+// router.put("/setTokenSilver", silverToken)
 //FUNCION PARA SETEAR TOKEN GOLD
-router.put("/setTokenGold", paymentGold_controller_1.goldToken);
+// router.put("/setTokenGold", goldToken)
 exports.default = router;

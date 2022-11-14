@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addProduct = exports.getProdcutId = exports.fullDbMovies = void 0;
+exports.addProduct = exports.getProdcutId = exports.fullDbProducts = void 0;
 const products_model_1 = __importDefault(require("../db/models/products.model"));
 const product_service_1 = require("../services/product.service");
 const infoSec_1 = require("../infoSec");
 const filmsName = infoSec_1.MoviesArr;
 const productsService = new product_service_1.ProductsService(new products_model_1.default());
 //MEDIANTE EL SERVICIO METE LAS PELICULAS EN BD
-const fullDbMovies = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const fullDbProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const dbMovies = yield products_model_1.default.findAll();
         if (dbMovies.length === 0) {
@@ -33,7 +33,7 @@ const fullDbMovies = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         return res.status(404).send("films not found in db!");
     }
 });
-exports.fullDbMovies = fullDbMovies;
+exports.fullDbProducts = fullDbProducts;
 //GET BY ID
 const getProdcutId = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -49,11 +49,12 @@ const getProdcutId = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.getProdcutId = getProdcutId;
 //POST PARA CREAR PELICULAS
 const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const porducto = req.body;
     console.log(req);
     try {
-        const dbMovie = yield productsService.insertOne(req.body);
-        console.log(dbMovie);
-        return res.status(200).send(dbMovie);
+        const dbProd = yield productsService.insertOne(porducto);
+        console.log(dbProd);
+        return res.status(200).send(dbProd);
     }
     catch (e) {
         return res.status(404).send(e);

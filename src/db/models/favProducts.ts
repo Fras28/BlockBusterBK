@@ -1,23 +1,23 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelizeConnection from "../db";
-import blockbuster from "./blockbuster.model";
+import products from "./products.model";
 import users from "./users.model";
 
-interface favMovieAttributes {
+interface favProductsAttributes {
   id?: number;
-  idMovie: number;
+  idProduct: number;
   idUser: number;
 }
 
-export interface UsersMovieInput extends Optional<favMovieAttributes, "id"> {}
-export interface UserMovieOutput extends UsersMovieInput {}
+export interface UsersProductInput extends Optional<favProductsAttributes, "id"> {}
+export interface UsersProductOutput extends UsersProductInput {}
 
-class favMovies
-  extends Model<favMovieAttributes, UsersMovieInput>
-  implements favMovieAttributes
+class favProducts
+  extends Model<favProductsAttributes, UsersProductInput>
+  implements favProductsAttributes
 {
   public id!: number;
-  public idMovie!: number;
+  public idProduct!: number;
   public idUser!: number;
 
   // timestamps!
@@ -26,17 +26,17 @@ class favMovies
   public readonly deletedAt!: Date;
 }
 
-favMovies.init(
+favProducts.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    idMovie: {
+   idProduct: {
       type: DataTypes.INTEGER,
       references: {
-        model: blockbuster,
+        model: products,
         key: "id",
       },
     },
@@ -54,11 +54,11 @@ favMovies.init(
   }
 );
 
-blockbuster.belongsToMany(users,{
-  through:favMovies
+products.belongsToMany(users,{
+  through:favProducts
 })
-users.belongsToMany(blockbuster,{
-  through:favMovies
+users.belongsToMany(products,{
+  through:favProducts
 })
 
-export default favMovies;
+export default favProducts;

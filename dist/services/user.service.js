@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
-const favMovies_1 = __importDefault(require("../db/models/favMovies"));
+const favProducts_1 = __importDefault(require("../db/models/favProducts"));
 const users_model_1 = __importDefault(require("../db/models/users.model"));
 class UserService {
     constructor(userModel) {
@@ -29,36 +29,30 @@ class UserService {
             return insertedUser;
         });
     }
-    defineCategoryGold(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let userX = yield users_model_1.default.update({ category: "gold" }, { where: { id } });
-            return userX;
-        });
-    }
+    // async defineCategoryGold(id: number) {
+    //   let userX = await users.update({ category: "gold" }, { where: { id } });
+    //   return userX;
+    // }
     defineCategoryGoldToken(id, token) {
         return __awaiter(this, void 0, void 0, function* () {
             let userX = yield users_model_1.default.update({ token }, { where: { id } });
             return userX;
         });
     }
-    defineCategorySilver(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let userX = yield users_model_1.default.update({ category: "silver" }, { where: { id } });
-            return userX;
-        });
-    }
+    // async defineCategorySilver(id: number) {
+    //   let userX = await users.update({ category: "silver" }, { where: { id } });
+    //   return userX;
+    // }
     defineCategorySilverToken(id, token) {
         return __awaiter(this, void 0, void 0, function* () {
             let userX = yield users_model_1.default.update({ token }, { where: { id } });
             return userX;
         });
     }
-    defineCategoryUser(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let userX = yield users_model_1.default.update({ category: "user" }, { where: { id } });
-            return userX;
-        });
-    }
+    // async defineCategoryUser(id: number) {
+    //   let userX = await users.update({ category: "user" }, { where: { id } });
+    //   return userX;
+    // }
     deletUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
             let deletUser = users_model_1.default.destroy({ where: { id } });
@@ -84,11 +78,11 @@ class UserService {
             return mapMail;
         });
     }
-    newFav(idMovie, idUser) {
+    newFav(idProduct, idUser) {
         return __awaiter(this, void 0, void 0, function* () {
-            let movie = yield favMovies_1.default.findOne({ where: { idUser, idMovie } });
+            let movie = yield favProducts_1.default.findOne({ where: { idUser, idProduct } });
             if (!movie) {
-                const lista = yield favMovies_1.default.create({ idMovie, idUser }, { validate: true });
+                const lista = yield favProducts_1.default.create({ idProduct, idUser }, { validate: true });
                 return lista;
             }
             if (movie) {
@@ -99,79 +93,8 @@ class UserService {
     }
     listFav() {
         return __awaiter(this, void 0, void 0, function* () {
-            const listMovies = yield favMovies_1.default.findAll();
+            const listMovies = yield favProducts_1.default.findAll();
             return listMovies;
-        });
-    }
-    limiter(id, idMovie) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const userX = yield users_model_1.default.findAll({ where: { id } });
-            let limi = userX[0].limiter;
-            let array = [];
-            let rta;
-            if (userX[0].category === "silver") {
-                if (limi === "" || limi === null) {
-                    limi = idMovie.toString();
-                    yield users_model_1.default.update({ limiter: limi }, { where: { id } });
-                }
-                else {
-                    rta = limi + "," + idMovie;
-                    array.push(rta);
-                    let array1 = array[0].split(",");
-                    console.log(array1, "aca estoy array1");
-                    const data = new Set(array1);
-                    let allMovie = [...data];
-                    console.log(allMovie, "aca all");
-                    console.log("aca andamos", allMovie);
-                    if (allMovie.length > 20) {
-                        throw new Error();
-                    }
-                    let data1 = allMovie.toString();
-                    yield users_model_1.default.update({ limiter: data1 }, { where: { id } });
-                    //let result = limi.split(",");
-                    console.log("aca andamos", allMovie);
-                    if (allMovie.length > 20) {
-                        throw new Error();
-                    }
-                }
-                return userX[0];
-            }
-            else {
-                const userx = users_model_1.default.findAll({ where: { id } });
-                console.log(`Hey ${userX} Your plan expired`);
-            }
-            //gold
-            if (userX[0].category === "gold") {
-                if (limi === "" || limi === null) {
-                    limi = idMovie.toString();
-                    yield users_model_1.default.update({ limiter: limi }, { where: { id } });
-                }
-                else {
-                    rta = limi + "," + idMovie;
-                    array.push(rta);
-                    let array1 = array[0].split(",");
-                    console.log(array1, "aca estoy array1");
-                    const data = new Set(array1);
-                    let allMovie = [...data];
-                    console.log(allMovie, "aca all");
-                    console.log("aca andamos", allMovie);
-                    if (allMovie.length > 40) {
-                        throw new Error();
-                    }
-                    let data1 = allMovie.toString();
-                    yield users_model_1.default.update({ limiter: data1 }, { where: { id } });
-                    //let result = limi.split(",");
-                    console.log("aca andamos", allMovie);
-                    if (allMovie.length > 40) {
-                        throw new Error();
-                    }
-                }
-                return userX[0];
-            }
-            else {
-                const userx = users_model_1.default.findAll({ where: { id } });
-                console.log(`Hey ${userX} Your plan expired`);
-            }
         });
     }
 }
