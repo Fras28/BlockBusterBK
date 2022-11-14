@@ -9,15 +9,10 @@ const productsService = new ProductsService(new product());
 //MEDIANTE EL SERVICIO METE LAS PELICULAS EN BD
 export const fullDbProducts = async (req: Request, res: Response) => {
   try {
-    const dbMovies = await product.findAll()
-    if (dbMovies.length === 0) {
-    //  await productsService.fullDataBase(filmsName);
-      const dbMovies = await product.findAll()
-      return res.status(200).send(dbMovies);
-    }
-    return res.status(200).send(dbMovies);
+    const dbProd = await product.findAll()
+    return res.status(200).send(dbProd);
   } catch (e) {
-    return res.status(404).send("films not found in db!");
+    return res.status(404).send("products not found in db!");
   }
 };
 
