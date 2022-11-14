@@ -1,8 +1,6 @@
 import { Request, Response, Router } from "express";
 import product from "../db/models/products.model";
 import { ProductsService } from "../services/product.service";
-import { MoviesArr } from "../infoSec";
-const filmsName = MoviesArr;
 const productsService = new ProductsService(new product());
 
 
@@ -21,8 +19,8 @@ export const getProdcutId =async (req: Request, res: Response) => {
   const {id} = req.params;
   try{
     console.log(id)
-    let movie = await product.findAll({where:{id}})
-    movie.length? res.status(200).send(movie) : res.status(400).send("Id not found!");
+    let products = await product.findAll({where:{id}})
+    products.length? res.status(200).send(products) : res.status(400).send("Id not found!");
   }
   catch(e){
     return res.status(404).send(e);

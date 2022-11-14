@@ -75,12 +75,13 @@ const newAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.newAdmin = newAdmin;
 //Crear nueva pelicula
 const newProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const infoNewMovie = req.body;
     try {
-        yield adminService.addProduct(infoNewMovie);
-        res.status(200).send(`movie: ${infoNewMovie.name}  added successfully👍`);
+        const infoNewProduct = req.body;
+        yield adminService.addProduct(infoNewProduct);
+        res.status(200).send(`Product: ${infoNewProduct.name}  added successfully👍`);
     }
     catch (e) {
+        console.log("lalalalalalalaa");
         res.status(400).send("something went rong whit this Prodcut, or already exists ");
     }
 });
@@ -88,8 +89,12 @@ exports.newProduct = newProduct;
 const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { stat, element, id } = req.body;
     try {
+        // if(element.typeof === "string"){
         yield adminService.modifierProduct(stat, element, id);
         res.status(200).send(`the product was successfully modified`);
+        // }
+        // else {await adminService.changePrice(element, id)
+        // res.status(200).send(`the product price was successfully modified`);}
     }
     catch (e) {
         res.status(400).send("something went rong whit this Prodcut, or already exists ");

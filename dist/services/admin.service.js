@@ -40,6 +40,7 @@ class AdminService {
             if (!findInDb) {
                 return yield products_model_1.default.create(product, { validate: true });
             }
+            console.log("llegamos aca");
             throw Error;
         });
     }
@@ -79,6 +80,10 @@ class AdminService {
             }
         });
     }
+    // async changePrice(id:number,element:number){
+    //   let userX = await ProductM.update({ price: element }, { where: { id } });
+    //   return userX;
+    // }
     defineAdmin(id) {
         return __awaiter(this, void 0, void 0, function* () {
             let userX = yield users_model_1.default.update({ category: "admin" }, { where: { id } });

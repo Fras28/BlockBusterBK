@@ -4,7 +4,7 @@ import sequelizeConnection from "../db";
 
 interface ComentsAttributes {
   id?: number;
-  movieId: number;
+  productID: number;
   idUser: number;
   name: string;
   coment: string;
@@ -14,7 +14,7 @@ interface ComentsAttributes {
 
 class comments extends Model<ComentsAttributes> {
   public id!: number;
-  public movieId!: number;
+  public productID!: number;
   public idUser!: number;
   public name!: string;
   public coment!: string;
@@ -39,7 +39,7 @@ comments.init(
     idUser: {
       type: DataTypes.INTEGER,
     },
-    movieId: {
+    productID: {
       type: DataTypes.INTEGER,
     },
     coment: {

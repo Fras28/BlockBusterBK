@@ -40,7 +40,7 @@ const addComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         let { id } = req.params;
         let xParamId = +id;
         const commentFullData = req.body;
-        commentFullData.movieId = xParamId;
+        commentFullData.productID = xParamId;
         let newComment = yield commentsService.newComment(commentFullData);
         return res.status(200).send(newComment);
     }

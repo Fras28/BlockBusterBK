@@ -15,22 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.addProduct = exports.getProdcutId = exports.fullDbProducts = void 0;
 const products_model_1 = __importDefault(require("../db/models/products.model"));
 const product_service_1 = require("../services/product.service");
-const infoSec_1 = require("../infoSec");
-const filmsName = infoSec_1.MoviesArr;
 const productsService = new product_service_1.ProductsService(new products_model_1.default());
 //MEDIANTE EL SERVICIO METE LAS PELICULAS EN BD
 const fullDbProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const dbMovies = yield products_model_1.default.findAll();
-        if (dbMovies.length === 0) {
-            //  await productsService.fullDataBase(filmsName);
-            const dbMovies = yield products_model_1.default.findAll();
-            return res.status(200).send(dbMovies);
-        }
-        return res.status(200).send(dbMovies);
+        const dbProd = yield products_model_1.default.findAll();
+        return res.status(200).send(dbProd);
     }
     catch (e) {
-        return res.status(404).send("films not found in db!");
+        return res.status(404).send("products not found in db!");
     }
 });
 exports.fullDbProducts = fullDbProducts;
@@ -39,8 +32,8 @@ const getProdcutId = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const { id } = req.params;
     try {
         console.log(id);
-        let movie = yield products_model_1.default.findAll({ where: { id } });
-        movie.length ? res.status(200).send(movie) : res.status(400).send("Id not found!");
+        let products = yield products_model_1.default.findAll({ where: { id } });
+        products.length ? res.status(200).send(products) : res.status(400).send("Id not found!");
     }
     catch (e) {
         return res.status(404).send(e);

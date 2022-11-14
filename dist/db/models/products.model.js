@@ -25,8 +25,11 @@ product.init({
     rated: {
         type: sequelize_1.DataTypes.STRING,
     },
+    price: {
+        type: sequelize_1.DataTypes.DECIMAL,
+    },
     status: {
         type: sequelize_1.DataTypes.BOOLEAN,
-    },
+    }
 }, { sequelize: db_1.default, paranoid: true });
 exports.default = product;

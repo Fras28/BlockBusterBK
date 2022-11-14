@@ -1,6 +1,7 @@
 import users from "../db/models/users.model";
 import { Request, Response } from "express";
 import { AdminService } from "../services/admin.service";
+import product from "../db/models/products.model";
 
 const adminService = new AdminService(new users());
 
@@ -57,11 +58,12 @@ export const newAdmin = async (req: Request, res: Response) => {
 
 //Crear nueva pelicula
 export const newProduct = async (req: Request, res: Response) => {
-  const infoNewMovie = req.body;
   try {
-    await adminService.addProduct(infoNewMovie);
-    res.status(200).send(`movie: ${infoNewMovie.name}  added successfully👍`);
+    const infoNewProduct:product = req.body;
+    await adminService.addProduct(infoNewProduct);
+    res.status(200).send(`Product: ${infoNewProduct.name}  added successfully👍`);
   } catch (e) {
+    console.log("lalalalalalalaa")
     res.status(400).send("something went rong whit this Prodcut, or already exists ");
   }
 };
@@ -69,11 +71,12 @@ export const newProduct = async (req: Request, res: Response) => {
 export const editProduct = async(req:Request, res:Response)=>{
   const { stat, element, id } = req.body;
   try {
-    if(element.typeof === "string"){
+    // if(element.typeof === "string"){
     await adminService.modifierProduct(stat, element, id);
-    res.status(200).send(`the product was successfully modified`);}
-    else {await adminService.changePrice(element, id)
-    res.status(200).send(`the product price was successfully modified`);}
+    res.status(200).send(`the product was successfully modified`);
+  // }
+    // else {await adminService.changePrice(element, id)
+    // res.status(200).send(`the product price was successfully modified`);}
   } catch (e) {
     res.status(400).send("something went rong whit this Prodcut, or already exists ");
   }

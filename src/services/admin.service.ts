@@ -58,8 +58,8 @@ export class AdminService {
     console.log(findInDb)
     if (!findInDb) {
       return await Products.create(product, { validate: true });
-    }
-    throw Error;
+    }console.log("llegamos aca")
+    throw Error ;
   }
 
   async statusProduct(id: number) {
@@ -100,10 +100,10 @@ export class AdminService {
       return userX;
     }
   }
-  async changePrice(id:number,element:number){
-    let userX = await ProductM.update({ price: element }, { where: { id } });
-    return userX;
-  }
+  // async changePrice(id:number,element:number){
+  //   let userX = await ProductM.update({ price: element }, { where: { id } });
+  //   return userX;
+  // }
 
   async defineAdmin(id: number) {
     let userX = await Users.update({ category: "admin" }, { where: { id } });

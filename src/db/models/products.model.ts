@@ -45,7 +45,7 @@ product.init(
       type: DataTypes.STRING,
     },
     price:{
-      type: DataTypes.NUMBER,
+      type: DataTypes.DECIMAL,
     },
     status: {
       type: DataTypes.BOOLEAN,

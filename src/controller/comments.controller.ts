@@ -28,7 +28,7 @@ export const addComment = async (req: Request, res: Response) => {
     let { id } = req.params;
     let xParamId = +id;
     const commentFullData: Comment = req.body;
-    commentFullData.movieId = xParamId;
+    commentFullData.productID = xParamId;
     let newComment = await commentsService.newComment(commentFullData);
     return res.status(200).send(newComment);
   } catch (e) {

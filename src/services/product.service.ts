@@ -10,8 +10,8 @@ export type Product = {
   description: string;
   photo: string;
   rated: string;
-  status: boolean;
   price:number;
+  status: boolean;
   comment?: Comment
 };
 
