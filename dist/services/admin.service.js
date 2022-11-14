@@ -63,8 +63,7 @@ class AdminService {
     modifierProduct(stat, element, id) {
         return __awaiter(this, void 0, void 0, function* () {
             if (stat === "name") {
-                let userX = yield products_model_2.default.update({ name: element }, { where: { id } });
-                return userX;
+                yield products_model_2.default.update({ name: element }, { where: { id } });
             }
             if (stat === "description") {
                 let userX = yield products_model_2.default.update({ description: element }, { where: { id } });
