@@ -11,6 +11,7 @@ export type Product = {
   photo: string;
   rated: string;
   status: boolean;
+  price:number;
   comment?: Comment
 };
 
