@@ -19,7 +19,7 @@ comments.init({
     idUser: {
         type: sequelize_1.DataTypes.INTEGER,
     },
-    movieId: {
+    productID: {
         type: sequelize_1.DataTypes.INTEGER,
     },
     coment: {

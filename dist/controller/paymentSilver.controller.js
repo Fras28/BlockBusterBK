@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.apiSilver = exports.executePaymentSilver = exports.silverToken = exports.createPaymentSilver = exports.usersService = void 0;
+exports.executePaymentSilver = exports.silverToken = exports.createPaymentSilver = exports.usersService = void 0;
 const axios_1 = __importDefault(require("axios"));
 const users_model_1 = __importDefault(require("../db/models/users.model"));
 const user_service_1 = require("../services/user.service");
@@ -74,14 +74,12 @@ const executePaymentSilver = (req, res) => __awaiter(void 0, void 0, void 0, fun
     res.send("Payment succses");
 });
 exports.executePaymentSilver = executePaymentSilver;
-const apiSilver = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.body;
-    try {
-        exports.usersService.defineCategorySilver(id);
-        res.send("category changed to silver");
-    }
-    catch (e) {
-        console.log(e);
-    }
-});
-exports.apiSilver = apiSilver;
+// export const apiSilver = async (req: Request, res: Response) => {
+//   const { id } = req.body;
+//   try {
+//     usersService.defineCategorySilver(id);
+//     res.send("category changed to silver");
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };

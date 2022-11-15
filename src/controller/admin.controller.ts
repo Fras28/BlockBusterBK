@@ -1,6 +1,7 @@
 import users from "../db/models/users.model";
 import { Request, Response } from "express";
 import { AdminService } from "../services/admin.service";
+import product from "../db/models/products.model";
 
 const adminService = new AdminService(new users());
 
@@ -56,25 +57,34 @@ export const newAdmin = async (req: Request, res: Response) => {
 };
 
 //Crear nueva pelicula
-export const newMovie = async (req: Request, res: Response) => {
-  const infoNewMovie = req.body;
+export const newProduct = async (req: Request, res: Response) => {
   try {
-    await adminService.addMovie(infoNewMovie);
-    res.status(200).send(`movie: ${infoNewMovie.name}  added successfully👍`);
+    const infoNewProduct:product = req.body;
+    await adminService.addProduct(infoNewProduct);
+    res.status(200).send(`Product: ${infoNewProduct.name}  added successfully👍`);
   } catch (e) {
-    res.status(400).send("something went rong whit this Movie");
+    res.status(404).send("something went rong whit this Prodcut, or already exists ");
   }
 };
 
+export const editProduct = async(req:Request, res:Response)=>{
+  const { stat, element, id } = req.body;
+  try {
+    await adminService.modifierProduct(stat, element, id);
+    res.status(200).send(`the product was successfully modified`);
+  } catch (e) {
+    res.status(400).send("something went rong whit this Prodcut, or it doesnt exist ");
+  }
+}
 //suspender pelicula
-export const suspMovie = async (req: Request, res: Response) => {
-  const { id } = req.body;
+export const suspProduct = async (req: Request, res: Response) => {
+  const  {id}  = req.body;
   console.log(id);
   try {
-    await adminService.statusMovie(id);
-    res.status(200).send("The movie was Updated");
+    await adminService.statusProduct(id);
+    res.status(200).send("The article was Updated");
   } catch (e) {
-    res.status(400).send("Something went rong whit this Movie ​​");
+    res.status(400).send("Something went rong whit this article ​​");
   }
 };
 

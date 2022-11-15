@@ -1,17 +1,17 @@
-import blockbuster from "./models/blockbuster.model";
+import products from "./models/products.model";
 import comments from "./models/coments.model";
 import user from "./models/users.model";
-import favMovies from "./models/favMovies";
+import favProducts from "./models/favProducts";
 
 const dbInit = () =>
   Promise.all([
-    blockbuster.sync({ alter: true }),
+    products.sync({ alter: true }),
     user.sync({ alter: true }),
     comments.sync({ alter: true }),
-    favMovies.sync({ alter: true }),
+    favProducts.sync({ alter: true }),
   ])
     .then(async() => {
-      await favMovies.sync({ alter: true });
+      await favProducts.sync({ alter: true });
     })
     .catch(() => {
       "error BDinit";

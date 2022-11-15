@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { addMovie, fullDbMovies, getMovieId} from "../controller/blockbuster.controller";
-import {  addFav, addLimit, addUser, deletUser, editUser, listFav } from "../controller/users.controller";
+import { addProduct, fullDbProducts, getProdcutId} from "../controller/products.controller";
+import {  addFav,/* addLimit,*/ addUser, deletUser, editUser, listFav } from "../controller/users.controller";
 import { fullDBComments, addComment, byIdComments, byIdCommentsUser, deleteComments, editComments } from "../controller/comments.controller"
-import {  bannComments, bannUser, fullUsers, getUser, newAdmin, suspMovie, unBannUser} from "../controller/admin.controller"
-import {apiGold, createPaymentGold, executePaymentGold, goldToken} from "../controller/paymentGold.controller"
-import {apiSilver, createPaymentSilver, executePaymentSilver, silverToken} from "../controller/paymentSilver.controller"
+import {  bannComments, bannUser, editProduct, fullUsers, getUser, newAdmin, newProduct, suspProduct, unBannUser} from "../controller/admin.controller"
+// import {apiGold, createPaymentGold, executePaymentGold, goldToken} from "../controller/paymentGold.controller"
+// import {apiSilver, createPaymentSilver, executePaymentSilver, silverToken} from "../controller/paymentSilver.controller"
 //import { nodemailerBannUser, nodemailerCreateUser, nodemailerUnbannUser } from "../controller/nodemailer";
 
 
@@ -13,10 +13,10 @@ const router = Router();
 //------------------------------------- GETS DE MOVIES--------------------------------
 
 //GET ALL MOVIES
-router.get("/",fullDbMovies)
+router.get("/",fullDbProducts)
 
 //GET BY ID MOVIES
-router.get('/detail/:id', getMovieId)
+router.get('/detail/:id', getProdcutId)
 
 //------------------------------------ GETS DE COMMENTS--------------------------------
 
@@ -79,13 +79,15 @@ router.post('/deletUser', deletUser)
 //------------------------------------- POSTS/PUTS DE MOVIES BY ADMIN-------------------------------
 
 //SUSPEND MOVIE--> necesito id(numerico) por body
-router.put("/removeM", suspMovie)
+router.put("/removeP", suspProduct)
 
 //POSTS MOVIE--> el modelo de blockbusters(esta en ds en Info-Back)
-router.post('/addM', addMovie)
+router.post('/addP', newProduct)
 
-//LIMITER GOLD/SILVER
-router.put("/limiter", addLimit)
+router.put("/editP", editProduct )
+
+// //LIMITER GOLD/SILVER
+// router.put("/limiter", addLimit)
 
 //------------------------------------- POSTS/PUTS DE COMMENTS BY ADMIN-------------------------------
 
@@ -94,7 +96,7 @@ router.put("/bannComments", bannComments)
 
 //-------------------------------------- NODEMAILER------------------------------------------
 //SEND SPAM NEW MOVIE 
-// router.get("/nodemailer", nodemailerAddMovie)
+// router.get("/nodemailer", nodemaileraddProduct)
 
 //SEND SPAM WELCOME EMAILS TO CLIENTS
 //router.get("/nodemaileru", nodemailerCreateUser)
@@ -107,29 +109,29 @@ router.put("/bannComments", bannComments)
 
 //---------------------------------------------- PAYPAL ---------------------------------------------------------
 
-//    http://localhost:3000/create-paymentGold [POST]
-router.post('/create-paymentGold', createPaymentGold)
+// //    http://localhost:3000/create-paymentGold [POST]
+// router.post('/create-paymentGold', createPaymentGold)
 
-//PAYMENT
-router.get('/execute-paymentGold', executePaymentGold )
+// //PAYMENT
+// router.get('/execute-paymentGold', executePaymentGold )
 
-//    http://localhost:3000/create-paymentSilver[POST]
-router.post('/create-paymentSilver', createPaymentSilver)
+// //    http://localhost:3000/create-paymentSilver[POST]
+// router.post('/create-paymentSilver', createPaymentSilver)
 
-//PAYMENT
-router.get('/execute-paymentSilver', executePaymentSilver)
+// //PAYMENT
+// router.get('/execute-paymentSilver', executePaymentSilver)
 
 //CHANGE GOLD
-router.put('/apiGold', apiGold)
+// router.put('/apiGold', apiGold)
 
-//CHANGE SILVER
-router.put('/apiSilver', apiSilver)
+// //CHANGE SILVER
+// router.put('/apiSilver', apiSilver)
 
-//FUNCION PARA SETEAR TOKEN SILVER
-router.put("/setTokenSilver", silverToken)
+// //FUNCION PARA SETEAR TOKEN SILVER
+// router.put("/setTokenSilver", silverToken)
 
 //FUNCION PARA SETEAR TOKEN GOLD
-router.put("/setTokenGold", goldToken)
+// router.put("/setTokenGold", goldToken)
 
 
 

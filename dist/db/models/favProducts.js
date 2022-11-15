@@ -5,20 +5,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const db_1 = __importDefault(require("../db"));
-const blockbuster_model_1 = __importDefault(require("./blockbuster.model"));
+const products_model_1 = __importDefault(require("./products.model"));
 const users_model_1 = __importDefault(require("./users.model"));
-class favMovies extends sequelize_1.Model {
+class favProducts extends sequelize_1.Model {
 }
-favMovies.init({
+favProducts.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    idMovie: {
+    idProduct: {
         type: sequelize_1.DataTypes.INTEGER,
         references: {
-            model: blockbuster_model_1.default,
+            model: products_model_1.default,
             key: "id",
         },
     },
@@ -33,10 +33,10 @@ favMovies.init({
     sequelize: db_1.default,
     paranoid: true,
 });
-blockbuster_model_1.default.belongsToMany(users_model_1.default, {
-    through: favMovies
+products_model_1.default.belongsToMany(users_model_1.default, {
+    through: favProducts
 });
-users_model_1.default.belongsToMany(blockbuster_model_1.default, {
-    through: favMovies
+users_model_1.default.belongsToMany(products_model_1.default, {
+    through: favProducts
 });
-exports.default = favMovies;
+exports.default = favProducts;

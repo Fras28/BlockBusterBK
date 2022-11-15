@@ -1,18 +1,14 @@
 import Comments from "../db/models/coments.model";
 
-
 export type Comment = {
   id?: number;
-  movieId: number;
+  productID: number;
   idUser: number;
   name: string;
   coment: string;
   picture: string;
   status: boolean;
 };
-
-
-
 
 export class CommentService {
   constructor(private commentModel: Comments) {}
@@ -33,10 +29,10 @@ export class CommentService {
     return !!comentD;
   }
 
-  async byIdMovie(movieId: number) {
+  async byIdMovie(productID: number) {
     const coments = await Comments.findAll({
       where: {
-        movieId,
+        productID,
       },
     });
     return coments;

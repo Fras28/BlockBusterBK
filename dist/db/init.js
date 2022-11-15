@@ -12,18 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const blockbuster_model_1 = __importDefault(require("./models/blockbuster.model"));
+const products_model_1 = __importDefault(require("./models/products.model"));
 const coments_model_1 = __importDefault(require("./models/coments.model"));
 const users_model_1 = __importDefault(require("./models/users.model"));
-const favMovies_1 = __importDefault(require("./models/favMovies"));
+const favProducts_1 = __importDefault(require("./models/favProducts"));
 const dbInit = () => Promise.all([
-    blockbuster_model_1.default.sync({ alter: true }),
+    products_model_1.default.sync({ alter: true }),
     users_model_1.default.sync({ alter: true }),
     coments_model_1.default.sync({ alter: true }),
-    favMovies_1.default.sync({ alter: true }),
+    favProducts_1.default.sync({ alter: true }),
 ])
     .then(() => __awaiter(void 0, void 0, void 0, function* () {
-    yield favMovies_1.default.sync({ alter: true });
+    yield favProducts_1.default.sync({ alter: true });
 }))
     .catch(() => {
     "error BDinit";

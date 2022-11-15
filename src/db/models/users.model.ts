@@ -13,8 +13,8 @@ interface UsersAttributes {
   status: boolean;
   category: string;
   token: string;
-  limiter?:string;//0 if(category:silver){update(limitador+1) if(limitado >20){(update(category:"user"))}}
-  //
+  // limiter?:string;//0 if(category:silver){update(limitador+1) if(limitado >20){(update(category:"user"))}}
+  // //
 }
 
 class users extends Model<UsersAttributes> {
@@ -27,7 +27,7 @@ class users extends Model<UsersAttributes> {
   public status!: boolean;         
   public category!: string;
   public token!: string;
-  public limiter !:string;
+  // public limiter !:string;
 
 
   public readonly createdAt!: Date;
@@ -68,13 +68,13 @@ users.init(
     },
     token: {
       type: DataTypes.STRING,
-    },
-    limiter:{
-      type: DataTypes.STRING,
-    },
+    }
+    ,
+    // limiter:{
+    //   type: DataTypes.STRING,
+    // },
   },
   { sequelize: sequelizeConnection, paranoid: true }
 );
-// season:{
-// type: DataTypes.ENUM("summer", "autumn","winter","spring")},
+
 export default users;

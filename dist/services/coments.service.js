@@ -37,11 +37,11 @@ class CommentService {
             return !!comentD;
         });
     }
-    byIdMovie(movieId) {
+    byIdMovie(productID) {
         return __awaiter(this, void 0, void 0, function* () {
             const coments = yield coments_model_1.default.findAll({
                 where: {
-                    movieId,
+                    productID,
                 },
             });
             return coments;

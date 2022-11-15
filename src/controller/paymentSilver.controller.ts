@@ -75,12 +75,12 @@ export const executePaymentSilver = async (req: Request, res: Response) => {
   res.send("Payment succses");
 };
 
-export const apiSilver = async (req: Request, res: Response) => {
-  const { id } = req.body;
-  try {
-    usersService.defineCategorySilver(id);
-    res.send("category changed to silver");
-  } catch (e) {
-    console.log(e);
-  }
-};
+// export const apiSilver = async (req: Request, res: Response) => {
+//   const { id } = req.body;
+//   try {
+//     usersService.defineCategorySilver(id);
+//     res.send("category changed to silver");
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
