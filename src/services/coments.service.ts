@@ -1,6 +1,5 @@
 import Comments from "../db/models/coments.model";
 
-
 export type Comment = {
   id?: number;
   productID: number;
@@ -10,9 +9,6 @@ export type Comment = {
   picture: string;
   status: boolean;
 };
-
-
-
 
 export class CommentService {
   constructor(private commentModel: Comments) {}

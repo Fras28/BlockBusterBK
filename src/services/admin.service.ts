@@ -1,7 +1,7 @@
 import Products from "../db/models/products.model";
 import Users from "../db/models/users.model";
 import Comments from "../db/models/coments.model";
-import favMovies from "../db/models/favProducts";
+
 import ProductM from "../db/models/products.model";
 import { where } from "sequelize";
 
@@ -9,12 +9,13 @@ export type Product = {
   id?: number;
   name: string;
   description: string;
-  photo: string;
-  rated: string;
-  price:number;
-  status: boolean;  
+  size?: number[];
+  color?: string[];
+  photo: string[];
+  rated: number;
+  price: number;
+  status: boolean;
 };
-
 
 export type Adm = "admin";
 
@@ -55,55 +56,113 @@ export class AdminService {
 
   async addProduct(product: Product) {
     const findInDb = await Products.findOne({ where: { name: product.name } });
-    console.log(findInDb)
+    console.log(findInDb);
     if (!findInDb) {
       return await Products.create(product, { validate: true });
-    }console.log("llegamos aca")
-    throw Error ;
+    }
+    console.log("llegamos aca");
+    throw Error;
   }
 
   async statusProduct(id: number) {
-    const productInfo= await Products.findAll({ where: { id } });
+    const productInfo = await Products.findAll({ where: { id } });
     if (productInfo[0].status === true) {
       const byeProduct = await Products.update(
-        { status:false },
+        { status: false },
         { where: { id } }
       );
       return !!byeProduct;
     } else {
       const byeProduct = await Products.update(
-        { status:true },
+        { status: true },
         { where: { id } }
       );
       return !!byeProduct;
     }
   }
 
-//  name: string;
-//   description: string;
-//   photo: string;
-//   rated: string;
-  async modifierProduct(stat:string, element:string ,id:number){
-    if(stat === "name"){
- await ProductM.update({ name: element }, { where: { id } });
-    }
-    if(stat === "description"){
-      let userX = await ProductM.update({ description: element }, { where: { id } });
-      return userX;
-    }
-    if(stat === "photo"){
-      let userX = await ProductM.update({ photo: element }, { where: { id } });
-      return userX;
-    }
-    if(stat === "rated"){
-      let userX = await ProductM.update({ rated: element }, { where: { id } });
-      return userX;
+  //  name: string;
+  //   description: string;
+  //   photo: string;
+  //   rated: string;
+  async modifierProduct(stat: string, element: string | number, id: number) {
+    const ojetEdit = await ProductM.findOne({ where: { id } });
+    if (ojetEdit) {
+      if (typeof element === "string") {
+        if (stat === "name") {
+          let articleX = await ProductM.update(
+            { name: element },
+            { where: { id } }
+          );
+          return articleX;
+        }
+        if (stat === "description") {
+          let articleX = await ProductM.update(
+            { description: element },
+            { where: { id } }
+          );
+          return articleX;
+        }
+        if (stat === "photo") {
+          let newArrP: string[] = [];
+          newArrP.push(element);
+          let articleX = await ProductM.update(
+            { photo: [...ojetEdit.photo, ...newArrP] },
+            { where: { id } }
+          );
+          return articleX;
+        }
+        if (stat === "color") {
+          let newArrC: string[] = [];
+          newArrC.push(element);
+          if (ojetEdit.color) {
+            let articleX = await ProductM.update(
+              { color: [...ojetEdit.color, ...newArrC] },
+              { where: { id } }
+            );
+            return articleX;
+          }
+          let articleX = await ProductM.update(
+            { color: newArrC },
+            { where: { id } }
+          );
+          return articleX;
+        }
+      }
+      if (typeof element === "number") {
+        if (stat === "rated") {
+          let articleX = await ProductM.update(
+            { rated: element },
+            { where: { id } }
+          );
+          return articleX;
+        }
+        if (stat === "price") {
+          let articleX = await ProductM.update(
+            { price: element },
+            { where: { id } }
+          );
+          return articleX;
+        }
+        if (stat === "size") {
+          let newArrS: number[] = [];
+          newArrS.push(element);
+          if (ojetEdit.size) {
+            let articleX = await ProductM.update(
+              { size: [...ojetEdit.size, ...newArrS] },
+              { where: { id } }
+            );
+            return articleX;
+          }
+          let articleX = await ProductM.update(
+            { size: newArrS },
+            { where: { id } }
+          );
+          return articleX;
+        }
+      }
     }
   }
-  // async changePrice(id:number,element:number){
-  //   let userX = await ProductM.update({ price: element }, { where: { id } });
-  //   return userX;
-  // }
 
   async defineAdmin(id: number) {
     let userX = await Users.update({ category: "admin" }, { where: { id } });
@@ -111,116 +170,9 @@ export class AdminService {
   }
 
   async editeName(id: number, string: string) {
-    let editName = await Products.update(
-      { name: string },
-      { where: { id } }
-    );
+    let editName = await Products.update({ name: string }, { where: { id } });
     return editName;
   }
-
-  // async editeYear(id: number, string: string) {
-  //   let editName = await Products.update(
-  //     { year: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  async editePoster(id: number, string: string) {
-    let editName = await Products.update(
-      { photo: string },
-      { where: { id } }
-    );
-    return editName;
-  }
-
-  // async editeGenre(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { genre: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  // async editeCountry(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { country: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  async editeRated(id: number, string: string) {
-    let editName = await Products.update(
-      { rated: string },
-      { where: { id } }
-    );
-    return editName;
-  }
-
-  // async editeReleased(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { released: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  // async editeRuntime(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { runtime: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  // async editeDirector(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { director: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  // async editeActors(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { actors: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  // async editePlot(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { plot: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  // async editeLanguage(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { language: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  // async editeimdbVotes(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { imdbVotes: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
-
-  // async editeimdbRating(id: number, string: string) {
-  //   let editName = await Blockbuster.update(
-  //     { imdbRating: string },
-  //     { where: { id } }
-  //   );
-  //   return editName;
-  // }
 
   async getUserByEmail(email: string) {
     let emailUser = await Users.findOne({ where: { email } });
@@ -250,5 +202,4 @@ export class AdminService {
     let bann = await Comments.update({ status: false }, { where: { idUser } });
     return bann;
   }
-
 }

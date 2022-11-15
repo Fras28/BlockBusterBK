@@ -90,9 +90,9 @@ export class UserService {
       return lista;
     }
     if (movie) {
-      let arrNoFav = await movie.destroy()
+      let arrNoFav = await movie.destroy();
       return arrNoFav;
-    } 
+    }
   }
 
   async listFav() {
@@ -130,7 +130,7 @@ export class UserService {
   //       }
   //     }
   //     return userX[0];
-  //   } 
+  //   }
   //   else {
   //     const userx = users.findAll({ where: { id } });
   //     console.log(`Hey ${userX} Your plan expired`);

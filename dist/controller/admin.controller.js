@@ -81,23 +81,18 @@ const newProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(200).send(`Product: ${infoNewProduct.name}  added successfully👍`);
     }
     catch (e) {
-        console.log("lalalalalalalaa");
-        res.status(400).send("something went rong whit this Prodcut, or already exists ");
+        res.status(404).send("something went rong whit this Prodcut, or already exists ");
     }
 });
 exports.newProduct = newProduct;
 const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { stat, element, id } = req.body;
     try {
-        // if(element.typeof === "string"){
         yield adminService.modifierProduct(stat, element, id);
         res.status(200).send(`the product was successfully modified`);
-        // }
-        // else {await adminService.changePrice(element, id)
-        // res.status(200).send(`the product price was successfully modified`);}
     }
     catch (e) {
-        res.status(400).send("something went rong whit this Prodcut, or already exists ");
+        res.status(400).send("something went rong whit this Prodcut, or it doesnt exist ");
     }
 });
 exports.editProduct = editProduct;

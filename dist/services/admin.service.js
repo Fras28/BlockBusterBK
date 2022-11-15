@@ -63,27 +63,57 @@ class AdminService {
     //   rated: string;
     modifierProduct(stat, element, id) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (stat === "name") {
-                yield products_model_2.default.update({ name: element }, { where: { id } });
-            }
-            if (stat === "description") {
-                let userX = yield products_model_2.default.update({ description: element }, { where: { id } });
-                return userX;
-            }
-            if (stat === "photo") {
-                let userX = yield products_model_2.default.update({ photo: element }, { where: { id } });
-                return userX;
-            }
-            if (stat === "rated") {
-                let userX = yield products_model_2.default.update({ rated: element }, { where: { id } });
-                return userX;
+            const ojetEdit = yield products_model_2.default.findOne({ where: { id } });
+            if (ojetEdit) {
+                if (typeof (element) === "string") {
+                    if (stat === "name") {
+                        let articleX = yield products_model_2.default.update({ name: element }, { where: { id } });
+                        return articleX;
+                    }
+                    if (stat === "description") {
+                        let articleX = yield products_model_2.default.update({ description: element }, { where: { id } });
+                        return articleX;
+                    }
+                    if (stat === "photo") {
+                        let newArrP = [];
+                        newArrP.push(element);
+                        let articleX = yield products_model_2.default.update({ photo: [...ojetEdit.photo, ...newArrP] }, { where: { id } });
+                        return articleX;
+                    }
+                    if (stat === "color") {
+                        let newArrC = [];
+                        newArrC.push(element);
+                        if (ojetEdit.color) {
+                            let articleX = yield products_model_2.default.update({ color: [...ojetEdit.color, ...newArrC] }, { where: { id } });
+                            return articleX;
+                        }
+                        let articleX = yield products_model_2.default.update({ color: newArrC }, { where: { id } });
+                        return articleX;
+                    }
+                }
+                if (typeof (element) === "number") {
+                    if (stat === "rated") {
+                        let articleX = yield products_model_2.default.update({ rated: element }, { where: { id } });
+                        return articleX;
+                    }
+                    if (stat === "price") {
+                        let articleX = yield products_model_2.default.update({ price: element }, { where: { id } });
+                        return articleX;
+                    }
+                    if (stat === "size") {
+                        let newArrS = [];
+                        newArrS.push(element);
+                        if (ojetEdit.size) {
+                            let articleX = yield products_model_2.default.update({ size: [...ojetEdit.size, ...newArrS] }, { where: { id } });
+                            return articleX;
+                        }
+                        let articleX = yield products_model_2.default.update({ size: newArrS }, { where: { id } });
+                        return articleX;
+                    }
+                }
             }
         });
     }
-    // async changePrice(id:number,element:number){
-    //   let userX = await ProductM.update({ price: element }, { where: { id } });
-    //   return userX;
-    // }
     defineAdmin(id) {
         return __awaiter(this, void 0, void 0, function* () {
             let userX = yield users_model_1.default.update({ category: "admin" }, { where: { id } });
@@ -96,95 +126,6 @@ class AdminService {
             return editName;
         });
     }
-    // async editeYear(id: number, string: string) {
-    //   let editName = await Products.update(
-    //     { year: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    editePoster(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield products_model_1.default.update({ photo: string }, { where: { id } });
-            return editName;
-        });
-    }
-    // async editeGenre(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { genre: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    // async editeCountry(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { country: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    editeRated(id, string) {
-        return __awaiter(this, void 0, void 0, function* () {
-            let editName = yield products_model_1.default.update({ rated: string }, { where: { id } });
-            return editName;
-        });
-    }
-    // async editeReleased(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { released: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    // async editeRuntime(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { runtime: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    // async editeDirector(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { director: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    // async editeActors(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { actors: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    // async editePlot(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { plot: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    // async editeLanguage(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { language: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    // async editeimdbVotes(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { imdbVotes: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
-    // async editeimdbRating(id: number, string: string) {
-    //   let editName = await Blockbuster.update(
-    //     { imdbRating: string },
-    //     { where: { id } }
-    //   );
-    //   return editName;
-    // }
     getUserByEmail(email) {
         return __awaiter(this, void 0, void 0, function* () {
             let emailUser = yield users_model_1.default.findOne({ where: { email } });
