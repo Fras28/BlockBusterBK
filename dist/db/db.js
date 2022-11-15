@@ -20,6 +20,7 @@ const sequelize = new sequelize_1.Sequelize(dbUrl, {
     logging: false,
     native: false,
     //CONFIGURACION ADICIONAL PARA DEPLOYAR
+    
     dialectOptions: {
         ssl: {
             require: true,
