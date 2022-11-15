@@ -5,7 +5,6 @@ import { fullDBComments, addComment, byIdComments, byIdCommentsUser, deleteComme
 import {  bannComments, bannUser, fullUsers, getUser, newAdmin, suspMovie, unBannUser} from "../controller/admin.controller"
 import {apiGold, createPaymentGold, executePaymentGold, goldToken} from "../controller/paymentGold.controller"
 import {apiSilver, createPaymentSilver, executePaymentSilver, silverToken} from "../controller/paymentSilver.controller"
-import { nodemailerBannUser, nodemailerCreateUser, nodemailerUnbannUser } from "../controller/nodemailer";
 
 
 const router = Router();
@@ -97,13 +96,13 @@ router.put("/bannComments", bannComments)
 // router.get("/nodemailer", nodemailerAddMovie)
 
 //SEND SPAM WELCOME EMAILS TO CLIENTS
-router.get("/nodemaileru", nodemailerCreateUser)
+//router.get("/nodemaileru", nodemailerCreateUser)
 
 //SEND SPAM THE THE ADMIN BANN SOMEONE
-router.get("/nodemailerb", nodemailerBannUser)
+//router.get("/nodemailerb", nodemailerBannUser)
 
 //UNBANN USER
-router.get("/nodemailerun", nodemailerUnbannUser)
+//router.get("/nodemailerun", nodemailerUnbannUser)
 
 //---------------------------------------------- PAYPAL ---------------------------------------------------------
 
