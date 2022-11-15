@@ -5,8 +5,10 @@ interface ProductsAttributes {
   id?: number;
   name: string;
   description: string;
-  photo: string;
-  rated: string;
+  size?:number[];
+  color?:string[];
+  photo: string[];
+  rated: number;
   price:number;
   status: boolean;
 }
@@ -15,8 +17,10 @@ class product extends Model<ProductsAttributes> {
   public id?: number;
   public name!: string;
   public description!: string;
-  public photo!: string;
-  public rated!: string;
+  public size?:number[];
+  public color?:string[];
+  public photo!:string[];
+  public rated!: number;
   public price!:number;
   public status!: boolean;
 
@@ -38,11 +42,17 @@ product.init(
     description: {
       type: DataTypes.STRING,
     },
+    color:{
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    },
+    size:{
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+    },
     photo: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     rated: {
-      type: DataTypes.STRING,
+      type: DataTypes.DECIMAL,
     },
     price:{
       type: DataTypes.DECIMAL,

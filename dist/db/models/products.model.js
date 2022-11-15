@@ -19,11 +19,17 @@ product.init({
     description: {
         type: sequelize_1.DataTypes.STRING,
     },
+    color: {
+        type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.STRING),
+    },
+    size: {
+        type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.INTEGER),
+    },
     photo: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.STRING),
     },
     rated: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.DECIMAL,
     },
     price: {
         type: sequelize_1.DataTypes.DECIMAL,

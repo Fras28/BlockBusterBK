@@ -18,39 +18,6 @@ class ProductsService {
     constructor(ProductsModel) {
         this.ProductsModel = ProductsModel;
     }
-    //------------Metodo para llenar Base de Datos-------
-    // async fullDataBase(MoviesArr: string[]) {
-    //   MoviesArr.map(async (e: string) => {
-    //     let films = await axios.get(url, { params: { t: e, apikey: apiKey } });
-    //     const {
-    //       Title: name,
-    //       Year: year,
-    //       Genre: genre,
-    //       Poster: poster,
-    //       Country: country,
-    //       Rated: rated,
-    //       Released: released,
-    //       Runtime: runtime,
-    //       Director: director,
-    //       Actors: actors,
-    //       Plot: plot,
-    //       Language: language,
-    //       imdbVotes: imdbVotes,
-    //       imdbRating: imdbRating,
-    //     } = films.data;
-    //     await this.insertOne({
-    //       id,
-    //       name,
-    //       rated,
-    //       description,
-    //       foto,
-    //       comment,
-    //       status:true,
-    //     });
-    //   });
-    //   return "Data Base full filed";
-    // }
-    //-----------------Metodo para traer peliculas de Base de Datos-----
     /*================ TRAER TODO DE LA DATA BASE ====================== */
     getAll() {
         return __awaiter(this, void 0, void 0, function* () {
